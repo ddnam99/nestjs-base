@@ -5,13 +5,13 @@ import { Cron, CronExpression } from '@nestjs/schedule';
 export class TestSchedule {
   private readonly logger = new Logger(TestSchedule.name);
 
-  @Cron('*/1 * * * * *')
+  @Cron('* * 1 * * *')
   handleCron() {
-    this.logger.debug('Called when the current second next 1s');
+    this.logger.debug('Called when the current second is 1 hour');
   }
 
-  @Cron(CronExpression.EVERY_10_SECONDS)
+  @Cron(CronExpression.EVERY_10_HOURS)
   handleCron1() {
-    this.logger.debug('Called when the current second next 10s');
+    this.logger.debug('Called every 10 hours');
   }
 }
