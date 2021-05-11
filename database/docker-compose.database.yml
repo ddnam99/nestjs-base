@@ -15,17 +15,17 @@ services:
       MYSQL_PASSWORD: ${MYSQL_PASSWORD}
       MYSQL_DATABASE: ${MYSQL_DATABASE_NAME}
 
-  postgres:
-    image: postgres:latest
-    restart: ${RESTART}
-    container_name: nestjs-base_postgres
-    ports:
-      - ${POSTGRES_PORT}:5432
-    volumes:
-      - postgre-data:/var/lib/postgresql/data
-    environment:
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
-      POSTGRES_DB: ${POSTGRES_DATABASE_NAME}
+  # postgres:
+  #   image: postgres:latest
+  #   restart: ${RESTART}
+  #   container_name: nestjs-base_postgres
+  #   ports:
+  #     - ${POSTGRES_PORT}:5432
+  #   volumes:
+  #     - postgre-data:/var/lib/postgresql/data
+  #   environment:
+  #     POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+  #     POSTGRES_DB: ${POSTGRES_DATABASE_NAME}
   
   redis:
     image: redis:latest
@@ -36,4 +36,4 @@ services:
 
 volumes:
   mysql-data:
-  postgre-data:
+  # postgre-data:

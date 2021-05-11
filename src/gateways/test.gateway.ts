@@ -5,18 +5,17 @@ import {
   WebSocketServer,
   OnGatewayConnection,
   OnGatewayDisconnect,
-} from "@nestjs/websockets";
-import { Logger, Injectable } from "@nestjs/common";
-import { Socket, Server } from "socket.io";
-import * as _ from "lodash";
-import { UserService } from "$services/user.service";
-import { RedisService } from "$connections/redis.provider";
-import { EventAction } from "$events/EventAction";
+} from '@nestjs/websockets';
+import { Logger, Injectable } from '@nestjs/common';
+import { Socket, Server } from 'socket.io';
+import * as _ from 'lodash';
+import { UserService } from '$services/user.service';
+import { RedisService } from '$connections/redis.provider';
+import { EventAction } from '$events/EventAction';
 
 @WebSocketGateway()
 @Injectable()
-export class TestGateway
-  implements OnGatewayInit, OnGatewayConnection, OnGatewayDisconnect {
+export class TestGateway implements OnGatewayInit, OnGatewayConnection, OnGatewayDisconnect {
   @WebSocketServer() server: Server;
   private readonly logger: Logger = new Logger(TestGateway.name);
   private readonly userService: UserService;
@@ -27,9 +26,7 @@ export class TestGateway
     this.redisService = redisService;
   }
 
-  afterInit(server: Server) {
-
-  }
+  afterInit(server: Server) {}
 
   @SubscribeMessage(EventAction.test_action)
   handleLoadConversationMembers(client: Socket, payload: string): void {

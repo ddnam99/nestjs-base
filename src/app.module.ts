@@ -1,4 +1,11 @@
-import { MiddlewareConsumer, Module, NestModule, RequestMethod, UsePipes, ValidationPipe } from '@nestjs/common';
+import {
+  MiddlewareConsumer,
+  Module,
+  NestModule,
+  RequestMethod,
+  UsePipes,
+  ValidationPipe,
+} from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AuthMiddleware } from '$middlewares/auth.middleware';
 import { ServicesModule } from '$services/services.module';
@@ -20,13 +27,13 @@ import { MulterModule } from '@nestjs/platform-express';
     ServicesModule,
     ControllersModule,
     GatewaysModule,
-    TasksModule
+    TasksModule,
   ],
   controllers: [],
   providers: [ConnectionsModule, ServicesModule],
 })
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
-    consumer.apply(AuthMiddleware).forRoutes({ path: '*', method: RequestMethod.ALL })
+    consumer.apply(AuthMiddleware).forRoutes({ path: '*', method: RequestMethod.ALL });
   }
 }

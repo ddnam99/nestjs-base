@@ -6,10 +6,7 @@ import { ServicesModule } from '$services/services.module';
 import { UploadController } from './upload.controller';
 
 @Module({
-    imports: [
-        MobileModule,
-        CmsModule
-    ],
-    controllers: [TestController, UploadController],
+  imports: [MobileModule, CmsModule],
+  controllers: [TestController, UploadController],
 })
-export class ControllersModule { }
+export class ControllersModule {}

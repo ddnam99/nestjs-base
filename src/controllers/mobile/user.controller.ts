@@ -1,15 +1,34 @@
+import { generateToken } from '$helpers/auth.helper';
+import { LoginDto } from '$models/auth.dto';
 import { RegisterDto } from '$models/user.dto';
+import { TokenService } from '$services/token.service';
 import { UserService } from '$services/user.service';
-import { Body, Controller, Get, Post, UsePipes, ValidationPipe } from '@nestjs/common';
+import { Body, Controller, Get, Post, Req, UsePipes, ValidationPipe } from '@nestjs/common';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
+import { Request } from 'express';
 
+@ApiBearerAuth()
+@ApiTags('user')
 @Controller('user')
 export class UserController {
-    constructor(
-        private readonly userService: UserService
-    ) { }
+  constructor(
+    private readonly userService: UserService,
+    private readonly tokenService: TokenService,
+  ) { }
 
-    @Post('register')
-    async register(@Body() body: RegisterDto) {
-        return await this.userService.create(body)
-    }
+  @Post('register')
+  async register(@Req() req: Request, @Body() body: RegisterDto) {
+    const userId = await this.userService.create(body);
+    return await this.tokenService.create(userId, req.get('user-agent'));
+  }
+
+  @Get('profile')
+  async profile(@Req() req: Request) {
+    return req.currentUser;
+  }
+
+  @Post('login')
+  async login(@Req() req: Request, @Body() body: LoginDto) {
+    return await this.userService.login(body.email, body.password, req.get('user-agent'))
+  }
 }

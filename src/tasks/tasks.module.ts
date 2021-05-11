@@ -3,7 +3,6 @@ import { ScheduleModule } from '@nestjs/schedule';
 import { TestSchedule } from './test.task';
 
 @Module({
-    imports: [ScheduleModule.forRoot(), TestSchedule]
+  imports: [ScheduleModule.forRoot(), TestSchedule],
 })
-export class TasksModule {
-}
+export class TasksModule {}
