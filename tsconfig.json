@@ -1,0 +1,35 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "declaration": true,
+    "removeComments": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "allowSyntheticDefaultImports": true,
+    "target": "es2017",
+    "sourceMap": true,
+    "incremental": true,
+    "baseUrl": "./src",
+    "outDir": "./dist",
+    "paths": {
+      "$config": ["config"],
+      "$connections/*": ["connections/*"],
+      "$constants/*": ["constants/*"],
+      "$controllers/*": ["controllers/*"],
+      "$entities/*": ["entities/*"],
+      "$enums/*": ["enums/*"],
+      "$events/*": ["events/*"],
+      "$gateways/*":["gateways/*"],
+      "$helpers/*": ["helpers/*"],
+      "$interfaces/*": ["interfaces/*"],
+      "$middlewares/*": ["middlewares/*"],
+      "$models/*": ["models/*"],
+      "$services/*": ["services/*"],
+      "$types/*": ["types/*"],
+      "$utils/*": ["utils/*"],
+      "$workers": ["workers"]
+    }
+  },
+  "include": ["src/**/*"],
+  "exclude": ["node_modules", "**/*.test.ts"]
+}
