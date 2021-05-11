@@ -4,7 +4,7 @@ import { AuthMiddleware } from '$middlewares/auth.middleware';
 import { ServicesModule } from '$services/services.module';
 import { ControllersModule } from '$controllers/controllers.module';
 import { GatewaysModule } from '$gateways/gateways.module';
-import { SchedulesModule } from '$schedules/schedules.module';
+import { TasksModule } from 'tasks/tasks.module';
 import { ConnectionsModule } from '$connections/connections.module';
 import { MulterModule } from '@nestjs/platform-express';
 
@@ -20,7 +20,7 @@ import { MulterModule } from '@nestjs/platform-express';
     ServicesModule,
     ControllersModule,
     GatewaysModule,
-    SchedulesModule
+    TasksModule
   ],
   controllers: [],
   providers: [ConnectionsModule, ServicesModule],

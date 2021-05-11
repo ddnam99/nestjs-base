@@ -18,8 +18,8 @@
     "$interfaces": "dist/interfaces",
     "$middlewares": "dist/middlewares",
     "$models": "dist/models",
-    "$schedules": "dist/schedules",
     "$services": "dist/services",
+    "$tasks": "dist/tasks",
     "$types": "dist/types",
     "$utils": "dist/utils",
     "$workers": "dist/workers"

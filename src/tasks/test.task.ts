@@ -1,5 +1,5 @@
 import { Injectable, Logger } from '@nestjs/common';
-import { Cron, CronExpression } from '@nestjs/schedule';
+import { Cron, CronExpression, Interval, Timeout } from '@nestjs/schedule';
 
 @Injectable()
 export class TestSchedule {
@@ -13,5 +13,15 @@ export class TestSchedule {
   @Cron(CronExpression.EVERY_10_HOURS)
   handleCron1() {
     this.logger.debug('Called every 10 hours');
+  }
+
+  @Interval(10000)
+  handleInterval() {
+    this.logger.debug('Called every 10 seconds');
+  }
+
+  @Timeout(5000)
+  handleTimeout() {
+    this.logger.debug('Called once after 5 seconds');
   }
 }
