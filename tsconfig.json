@@ -24,6 +24,7 @@
       "$interfaces/*": ["interfaces/*"],
       "$middlewares/*": ["middlewares/*"],
       "$models/*": ["models/*"],
+      "$schedules/*": ["schedules/*"],
       "$services/*": ["services/*"],
       "$types/*": ["types/*"],
       "$utils/*": ["utils/*"],

@@ -5,7 +5,7 @@ import { Request, Response, NextFunction } from 'express';
 
 @Injectable()
 export class AuthMiddleware implements NestMiddleware {
-  private logger: Logger = new Logger("TokenService");
+  private logger: Logger = new Logger(AuthMiddleware.name);
   private readonly userService: UserService;
   private readonly redisService: RedisService;
 

@@ -6,7 +6,7 @@ import { Connection, getRepository, Repository } from 'typeorm';
 
 @Injectable()
 export class UserService {
-    private readonly logger: Logger = new Logger("UserService")
+    private readonly logger: Logger = new Logger(UserService.name)
     constructor(
         @InjectRepository(Users)
         private readonly userRepository: Repository<Users>,

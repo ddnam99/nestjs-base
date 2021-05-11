@@ -5,6 +5,7 @@ import { AuthMiddleware } from '$middlewares/auth.middleware';
 import { ServicesModule } from '$services/services.module';
 import { ControllersModule } from '$controllers/controllers.module';
 import { GatewaysModule } from '$gateways/gateways.module';
+import { SchedulesModule } from '$schedules/schedules.module';
 
 @Module({
   imports: [
@@ -12,7 +13,8 @@ import { GatewaysModule } from '$gateways/gateways.module';
     ConnectionsModule,
     ServicesModule,
     ControllersModule,
-    GatewaysModule
+    GatewaysModule,
+    SchedulesModule
   ],
   controllers: [],
   providers: [ConnectionsModule, ServicesModule],

@@ -18,7 +18,7 @@ import { EventAction } from "$events/EventAction";
 export class TestGateway
   implements OnGatewayInit, OnGatewayConnection, OnGatewayDisconnect {
   @WebSocketServer() server: Server;
-  private readonly logger: Logger = new Logger("TestGateway");
+  private readonly logger: Logger = new Logger(TestGateway.name);
   private readonly userService: UserService;
   private readonly redisService: RedisService;
 
