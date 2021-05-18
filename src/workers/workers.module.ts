@@ -4,12 +4,7 @@ import { ServicesModule } from '$services/services.module';
 import { BackendWorker } from './backend.worker';
 
 @Module({
-    imports: [
-        ConnectionsModule,
-        ServicesModule
-    ],
-    providers: [BackendWorker]
+  imports: [ConnectionsModule, ServicesModule],
+  providers: [BackendWorker],
 })
-export class WorkersModule {
-
-}
+export class WorkersModule {}

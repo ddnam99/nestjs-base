@@ -1,11 +1,4 @@
-import {
-  MiddlewareConsumer,
-  Module,
-  NestModule,
-  RequestMethod,
-  UsePipes,
-  ValidationPipe,
-} from '@nestjs/common';
+import { Module } from '@nestjs/common';
 import { UserService } from '$services/user.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { UserEntity } from '$entities/Users';

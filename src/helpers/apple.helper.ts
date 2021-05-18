@@ -30,7 +30,9 @@ const verifyAppleToken = async (idToken: string, clientId: string) => {
   const applePublicKey = await getApplePublicKey(kid);
   const jwtClaims = jwt.verify(idToken, applePublicKey, { algorithms: [alg] }) as any;
   if (clientId && jwtClaims.aud !== clientId) {
-    throw new Error(`The aud parameter does not include this client - is: ${jwtClaims.aud} | expected: ${clientId}`);
+    throw new Error(
+      `The aud parameter does not include this client - is: ${jwtClaims.aud} | expected: ${clientId}`,
+    );
   }
   return {
     id: jwtClaims.sub,

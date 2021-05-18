@@ -12,6 +12,5 @@ export const Environment = {
 
   TWILIO_SID: process.env.TWILIO_SID,
   TWILIO_TOKEN: process.env.TWILIO_TOKEN,
-  TWILIO_PHONE_NUMBER: process.env.TWILIO_PHONE_NUMBER
-
+  TWILIO_PHONE_NUMBER: process.env.TWILIO_PHONE_NUMBER,
 };

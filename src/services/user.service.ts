@@ -15,7 +15,7 @@ export class UserService {
     private readonly userRepository: Repository<UserEntity>,
     private readonly tokenService: TokenService,
     private readonly connection: Connection,
-  ) { }
+  ) {}
 
   async getById(userId: string) {
     return await this.userRepository.findOne({ id: userId });
@@ -35,9 +35,9 @@ export class UserService {
     return user.id;
   }
   async login(email: string, password: string, userAgent: string) {
-    const user = await this.userRepository.findOne({ where: { email: email } })
-    const isPasswordCorrect = await compareSync(password, user.passwordHash)
-    if (!isPasswordCorrect) throw new UnauthorizedException('error.EmailOrPasswordInCorrect')
-    return await this.tokenService.create(user.id, userAgent)
+    const user = await this.userRepository.findOne({ where: { email: email } });
+    const isPasswordCorrect = await compareSync(password, user.passwordHash);
+    if (!isPasswordCorrect) throw new UnauthorizedException('error.EmailOrPasswordInCorrect');
+    return await this.tokenService.create(user.id, userAgent);
   }
 }

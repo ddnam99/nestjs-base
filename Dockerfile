@@ -1,4 +1,4 @@
-FROM node:12.21-alpine
+FROM node:12.22.1-alpine
 LABEL Author="Duong Duc Nam <nampt1999@gmail.com>"
 
 EXPOSE 3000

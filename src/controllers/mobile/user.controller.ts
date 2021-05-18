@@ -14,7 +14,7 @@ export class UserController {
   constructor(
     private readonly userService: UserService,
     private readonly tokenService: TokenService,
-  ) { }
+  ) {}
 
   @Post('register')
   async register(@Req() req: Request, @Body() body: RegisterDto) {
@@ -29,6 +29,6 @@ export class UserController {
 
   @Post('login')
   async login(@Req() req: Request, @Body() body: LoginDto) {
-    return await this.userService.login(body.email, body.password, req.get('user-agent'))
+    return await this.userService.login(body.email, body.password, req.get('user-agent'));
   }
 }
