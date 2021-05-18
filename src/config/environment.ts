@@ -9,4 +9,9 @@ export const Environment = {
   ACCESS_TOKEN_EXPIRE: Number(process.env.ACCESS_TOKEN_EXPIRE),
   REFRESH_TOKEN_SECRET: process.env.REFRESH_TOKEN_SECRET,
   REFRESH_TOKEN_EXPIRE: Number(process.env.REFRESH_TOKEN_EXPIRE),
+
+  TWILIO_SID: process.env.TWILIO_SID,
+  TWILIO_TOKEN: process.env.TWILIO_TOKEN,
+  TWILIO_PHONE_NUMBER: process.env.TWILIO_PHONE_NUMBER
+
 };

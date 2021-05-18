@@ -51,6 +51,7 @@
     "@nestjs/typeorm": "^7.1.5",
     "@nestjs/websockets": "^7.6.15",
     "@types/socket.io": "^2.1.13",
+    "axios": "^0.21.1",
     "bcryptjs": "^2.4.3",
     "class-transformer": "^0.4.0",
     "class-validator": "^0.13.1",
@@ -59,9 +60,11 @@
     "jsonwebtoken": "^8.5.1",
     "mysql2": "^2.2.5",
     "reflect-metadata": "^0.1.13",
+    "request": "^2.88.2",
     "rimraf": "^3.0.2",
     "rxjs": "^6.6.3",
     "swagger-ui-express": "^4.1.6",
+    "twilio": "^3.62.0",
     "typeorm": "^0.2.32"
   },
   "devDependencies": {
