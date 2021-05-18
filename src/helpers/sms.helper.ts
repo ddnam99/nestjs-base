@@ -1,14 +1,13 @@
 import config from "$config";
 import { Logger } from "@nestjs/common";
+import twilio from "twilio";
 
 const logger = new Logger('SMS')
 
-let client = null;
+const client = twilio(config.ENV.TWILIO_SID, config.ENV.TWILIO_TOKEN);
 
 export async function sendSMS(phone: string, code: string) {
     try {
-        client = client ? client : require('twilio')(config.ENV.TWILIO_SID, config.ENV.TWILIO_TOKEN);
-
         if (phone.startsWith('84')) phone = '+' + phone;
         if (phone.startsWith('0')) phone = '+84' + phone.substr(1);
 
