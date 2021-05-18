@@ -5,7 +5,7 @@ dist
 node_modules
 
 .dockerignore
-.env
+.env*
 .gitignore
 package-lock.json
 README.md
