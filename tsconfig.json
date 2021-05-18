@@ -28,7 +28,7 @@
       "$tasks/*": ["tasks/*"],
       "$types/*": ["types/*"],
       "$utils/*": ["utils/*"],
-      "$workers": ["workers"]
+      "$workers/*": ["workers/*"]
     }
   },
   "include": ["src/**/*"],

@@ -14,6 +14,7 @@ import { GatewaysModule } from '$gateways/gateways.module';
 import { TasksModule } from 'tasks/tasks.module';
 import { ConnectionsModule } from '$connections/connections.module';
 import { MulterModule } from '@nestjs/platform-express';
+import { WorkersModule } from 'workers/workers.module';
 
 @Module({
   imports: [
@@ -28,6 +29,7 @@ import { MulterModule } from '@nestjs/platform-express';
     ControllersModule,
     GatewaysModule,
     TasksModule,
+    WorkersModule
   ],
   controllers: [],
   providers: [ConnectionsModule, ServicesModule],

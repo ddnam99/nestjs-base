@@ -1,5 +1,4 @@
 require('dotenv').config();
-import '$workers';
 
 import config from '$config';
 import { NestFactory } from '@nestjs/core';
