@@ -4,10 +4,9 @@
 Run `yarn prepare` to setup husky (pre-commit)
 
 ## Setup database (Docker)
-Requirements:
-- docker, docker-compose
+Requirements: `docker`, `docker-compose`
 
-Config: please edit database/.env.database
+Config: please edit `database/.env.database`
 
 Command:
 - Start database: `yarn database:up`
