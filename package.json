@@ -51,6 +51,7 @@
     "@nestjs/swagger": "^4.8.0",
     "@nestjs/typeorm": "^7.1.5",
     "@nestjs/websockets": "^7.6.15",
+    "@sendgrid/mail": "^7.4.4",
     "@types/socket.io": "^2.1.13",
     "axios": "^0.21.1",
     "bcryptjs": "^2.4.3",
@@ -115,7 +116,7 @@
   "lint-staged": {
     "*.(js|ts|json)": [
       "prettier --write",
-      "git add ."
+      "git add"
     ]
   }
 }
