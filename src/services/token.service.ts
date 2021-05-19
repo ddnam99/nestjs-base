@@ -15,6 +15,7 @@ export class TokenService {
 
   async create(userId: string, userAgent: string) {
     const now = Date.now();
+
     return await this.tokenRepository.save({
       userId: userId,
       expires: new Date(now + config.ENV.ACCESS_TOKEN_EXPIRE),
