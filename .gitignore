@@ -37,3 +37,4 @@ upload
 
 .env
 package-lock.json
+docker-compose.local.yml

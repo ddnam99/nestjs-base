@@ -1,12 +1,14 @@
 import { MiddlewareConsumer, Module, NestModule, RequestMethod } from '@nestjs/common';
-import { TypeOrmModule } from '@nestjs/typeorm';
+
 import { AuthMiddleware } from '$middlewares/auth.middleware';
-import { ServicesModule } from '$services/services.module';
+import { ConnectionsModule } from '$connections/connections.module';
 import { ControllersModule } from '$controllers/controllers.module';
 import { GatewaysModule } from '$gateways/gateways.module';
-import { TasksModule } from 'tasks/tasks.module';
-import { ConnectionsModule } from '$connections/connections.module';
+import { MailerRegister } from 'mailer/mailer.register';
 import { MulterModule } from '@nestjs/platform-express';
+import { ServicesModule } from '$services/services.module';
+import { TasksModule } from 'tasks/tasks.module';
+import { TypeOrmModule } from '@nestjs/typeorm';
 import { WorkersModule } from '$workers/workers.module';
 
 @Module({
@@ -23,6 +25,7 @@ import { WorkersModule } from '$workers/workers.module';
     GatewaysModule,
     TasksModule,
     WorkersModule,
+    MailerRegister,
   ],
   controllers: [],
   providers: [ConnectionsModule, ServicesModule],
