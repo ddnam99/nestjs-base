@@ -29,15 +29,19 @@ export class UserService {
     user.firstName = data.firstName;
     user.lastName = data.lastName;
     user.email = data.email;
-    user.passwordHash = hashSync(data.password);
+    user.passwordHash = await hashSync(data.password);
 
     user = await this.userRepository.save(user);
     return user.id;
   }
   async login(email: string, password: string, userAgent: string) {
     const user = await this.userRepository.findOne({ where: { email: email } });
+
+    if (!user) throw new BadRequestException('error.UsernameOrPasswordIncorrect');
+
     const isPasswordCorrect = await compareSync(password, user.passwordHash);
     if (!isPasswordCorrect) throw new UnauthorizedException('error.EmailOrPasswordInCorrect');
+
     return await this.tokenService.create(user.id, userAgent);
   }
 }

@@ -13,4 +13,7 @@ export const Environment = {
   TWILIO_SID: process.env.TWILIO_SID,
   TWILIO_TOKEN: process.env.TWILIO_TOKEN,
   TWILIO_PHONE_NUMBER: process.env.TWILIO_PHONE_NUMBER,
+
+  SENDGRID_API_KEY: process.env.SENDGRID_API_KEY,
+  SENDGRID_EMAIL: process.env.SENDGRID_MAIL,
 };

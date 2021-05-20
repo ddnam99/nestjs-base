@@ -3,7 +3,17 @@ import { LoginDto } from '$models/auth.dto';
 import { RegisterDto } from '$models/user.dto';
 import { TokenService } from '$services/token.service';
 import { UserService } from '$services/user.service';
-import { Body, Controller, Get, Post, Req, UsePipes, ValidationPipe } from '@nestjs/common';
+import {
+  Body,
+  ClassSerializerInterceptor,
+  Controller,
+  Get,
+  Post,
+  Req,
+  UseInterceptors,
+  UsePipes,
+  ValidationPipe,
+} from '@nestjs/common';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { Request } from 'express';
 
@@ -23,6 +33,7 @@ export class UserController {
   }
 
   @Get('profile')
+  @UseInterceptors(ClassSerializerInterceptor)
   async profile(@Req() req: Request) {
     return req.currentUser;
   }
