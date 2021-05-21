@@ -33,7 +33,7 @@ lerna-debug.log*
 !.vscode/launch.json
 !.vscode/extensions.json
 
-upload
+uploads
 
 .env
 package-lock.json

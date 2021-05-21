@@ -12,11 +12,6 @@ import { WorkersModule } from '$workers/workers.module';
 @Module({
   imports: [
     TypeOrmModule.forRoot(),
-    MulterModule.registerAsync({
-      useFactory: () => ({
-        dest: './upload',
-      }),
-    }),
     ConnectionsModule,
     ServicesModule,
     ControllersModule,

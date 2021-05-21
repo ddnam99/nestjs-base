@@ -1,28 +1,66 @@
+import { ApiFile, ApiFiles, MulterConfig } from '$helpers/file.helper';
 import {
   Controller,
   Get,
+  Param,
   Post,
   Req,
+  Res,
   UploadedFile,
   UploadedFiles,
   UseInterceptors,
 } from '@nestjs/common';
 import { AnyFilesInterceptor, FileInterceptor, FilesInterceptor } from '@nestjs/platform-express';
-import { ApiBearerAuth, ApiBody, ApiOperation, ApiTags } from '@nestjs/swagger';
+import {
+  ApiBearerAuth,
+  ApiBody,
+  ApiConsumes,
+  ApiOperation,
+  ApiParam,
+  ApiTags,
+} from '@nestjs/swagger';
+import { diskStorage } from 'multer';
+import { extname } from 'path';
 
 @ApiBearerAuth()
 @ApiTags('upload')
 @Controller('upload')
 export class UploadController {
   @Post('file')
-  @UseInterceptors(FileInterceptor('file'))
+  @ApiFile()
+  @ApiConsumes('multipart/form-data')
+  @UseInterceptors(FileInterceptor('file', MulterConfig))
   uploadFile(@UploadedFile() file: Express.Multer.File) {
     console.log(file);
+
+    return {
+      originalname: file.originalname,
+      filename: file.filename,
+      mimetype: file.mimetype,
+      size: file.size,
+    };
   }
 
   @Post('files')
-  @UseInterceptors(AnyFilesInterceptor())
+  @ApiFiles()
+  @ApiConsumes('multipart/form-data')
+  @UseInterceptors(AnyFilesInterceptor(MulterConfig))
   uploadMultiFile(@UploadedFiles() files: Array<Express.Multer.File>) {
     console.log(files);
+
+    return files.map(file => {
+      return {
+        originalname: file.originalname,
+        filename: file.filename,
+        mimetype: file.mimetype,
+        size: file.size,
+      };
+    });
+  }
+
+  @Get(':img')
+  @ApiParam({ name: 'img', required: true })
+  seeUploadedFile(@Param('img') image, @Res() res) {
+    return res.sendFile(image, { root: './upload' });
   }
 }
