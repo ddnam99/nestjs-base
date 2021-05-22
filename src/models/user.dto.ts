@@ -21,9 +21,8 @@ export class RegisterDto {
   @ApiProperty({ required: true })
   lastName: string;
 
-  @IsNotEmpty()
   @IsString()
-  @MinLength(4)
+  @MinLength(6)
   @ApiProperty({ required: true })
   password: string;
 }

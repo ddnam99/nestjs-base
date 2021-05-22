@@ -34,8 +34,9 @@ export class UserService {
     user = await this.userRepository.save(user);
     return user.id;
   }
+
   async login(email: string, password: string, userAgent: string) {
-    const user = await this.userRepository.findOne({ where: { email: email } });
+    const user = await this.userRepository.findOne({ email: email });
 
     if (!user) throw new BadRequestException('error.UsernameOrPasswordIncorrect');
 
@@ -43,5 +44,16 @@ export class UserService {
     if (!isPasswordCorrect) throw new UnauthorizedException('error.EmailOrPasswordInCorrect');
 
     return await this.tokenService.create(user.id, userAgent);
+  }
+
+  async changePassword(userId: string, oldPassword: string, newPassword: string) {
+    const user = await this.getById(userId);
+
+    const isPasswordCorrect = await compareSync(oldPassword, user.passwordHash);
+    if (!isPasswordCorrect) throw new UnauthorizedException('error.OldPasswordInCorrect');
+
+    user.passwordHash = await hashSync(newPassword);
+
+    await this.userRepository.save(user);
   }
 }

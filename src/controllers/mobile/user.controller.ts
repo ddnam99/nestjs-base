@@ -1,5 +1,5 @@
 import { generateToken } from '$helpers/auth.helper';
-import { LoginDto } from '$models/auth.dto';
+import { ChangePasswordDto, LoginDto } from '$models/auth.dto';
 import { RegisterDto } from '$models/user.dto';
 import { TokenService } from '$services/token.service';
 import { UserService } from '$services/user.service';
@@ -41,5 +41,14 @@ export class UserController {
   @Post('login')
   async login(@Req() req: Request, @Body() body: LoginDto) {
     return await this.userService.login(body.email, body.password, req.get('user-agent'));
+  }
+
+  @Post('change-password')
+  async changePassword(@Req() req: Request, @Body() body: ChangePasswordDto) {
+    return await this.userService.changePassword(
+      req.currentUserId,
+      body.oldPassword,
+      body.newPassword,
+    );
   }
 }

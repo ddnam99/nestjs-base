@@ -23,6 +23,8 @@ export class AuthMiddleware implements NestMiddleware {
   }
 
   async use(req: Request, res: Response, next: NextFunction) {
+    if (req.originalUrl === '/') return res.redirect('/api/docs');
+
     let accessToken = req.headers.authorization?.replace('Bearer ', '');
 
     // * Handle: Bearer JWT

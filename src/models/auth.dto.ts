@@ -1,6 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { Exclude, Expose } from 'class-transformer';
-import { IsDefined, IsNotEmpty, IsString } from 'class-validator';
+import { IsDefined, IsNotEmpty, IsString, MinLength } from 'class-validator';
 import { Trim } from 'utils/transformers';
 
 export class LoginDto {
@@ -12,9 +12,20 @@ export class LoginDto {
 
   @IsString()
   @IsNotEmpty()
-  @Trim()
   @ApiProperty({ required: true })
   password: string;
+}
+
+export class ChangePasswordDto {
+  @IsString()
+  @IsNotEmpty()
+  @ApiProperty({ required: true })
+  oldPassword: string;
+
+  @IsString()
+  @MinLength(6)
+  @ApiProperty({ required: true })
+  newPassword: string;
 }
 
 export class CurrentUser {

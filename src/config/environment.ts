@@ -1,5 +1,5 @@
 export const Environment = {
-  SERVER_PORT: Number(process.env.SERVER_PORT),
+  SERVER_PORT: Number(process.env.SERVER_PORT || 3000),
 
   REDIS_HOST: process.env.REDIS_HOST,
   REDIS_PORT: Number(process.env.REDIS_PORT),
