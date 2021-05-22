@@ -9,6 +9,7 @@ import { BullModule } from '@nestjs/bull';
       redis: {
         host: config.ENV.REDIS_HOST,
         port: config.ENV.REDIS_PORT,
+        password: config.ENV.REDIS_PASS,
       },
     }),
   ],

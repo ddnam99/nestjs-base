@@ -15,25 +15,16 @@ services:
       MYSQL_PASSWORD: ${MYSQL_PASSWORD}
       MYSQL_DATABASE: ${MYSQL_DATABASE_NAME}
 
-  # postgres:
-  #   image: postgres:latest
-  #   restart: ${RESTART}
-  #   container_name: nestjs-base_postgres
-  #   ports:
-  #     - ${POSTGRES_PORT}:5432
-  #   volumes:
-  #     - postgre-data:/var/lib/postgresql/data
-  #   environment:
-  #     POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
-  #     POSTGRES_DB: ${POSTGRES_DATABASE_NAME}
-  
   redis:
     image: redis:latest
     restart: ${RESTART}
     container_name: nestjs-base_redis
     ports:
       - ${REDIS_PORT}:6379
+    volumes: 
+      - redis-data:/data
+    command: redis-server --appendonly yes --requirepass ${REDIS_PASS}
 
 volumes:
   mysql-data:
-  # postgre-data:
+  redis-data:
