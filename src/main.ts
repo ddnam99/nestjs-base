@@ -1,10 +1,11 @@
 require('dotenv').config();
 
 import config from '$config';
-import { NestFactory } from '@nestjs/core';
+import { NestFactory, Reflector } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { swaggerSetup } from '$helpers/swagger.helper';
 import { Logger, ValidationPipe } from '@nestjs/common';
+import { AuthGuard } from '$guards/auth.guard';
 
 const logger = new Logger('NestApplication');
 
@@ -18,6 +19,9 @@ async function bootstrap() {
       forbidNonWhitelisted: true,
     }),
   );
+
+  const reflector = app.get(Reflector);
+  app.useGlobalGuards(new AuthGuard(reflector));
 
   swaggerSetup(app);
 

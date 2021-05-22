@@ -20,6 +20,7 @@
       "$enums/*": ["enums/*"],
       "$events/*": ["events/*"],
       "$gateways/*": ["gateways/*"],
+      "$guards/*": ["guards/*"],
       "$helpers/*": ["helpers/*"],
       "$interfaces/*": ["interfaces/*"],
       "$middlewares/*": ["middlewares/*"],

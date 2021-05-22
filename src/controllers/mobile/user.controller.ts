@@ -1,4 +1,5 @@
 import { generateToken } from '$helpers/auth.helper';
+import { AllowAnonymous } from '$helpers/decorator.helper';
 import { ChangePasswordDto, LoginDto } from '$models/auth.dto';
 import { RegisterDto } from '$models/user.dto';
 import { TokenService } from '$services/token.service';
@@ -10,6 +11,7 @@ import {
   Get,
   Post,
   Req,
+  UseGuards,
   UseInterceptors,
   UsePipes,
   ValidationPipe,
@@ -27,6 +29,7 @@ export class UserController {
   ) {}
 
   @Post('register')
+  @AllowAnonymous()
   async register(@Req() req: Request, @Body() body: RegisterDto) {
     const userId = await this.userService.create(body);
     return await this.tokenService.create(userId, req.get('user-agent'));
@@ -39,6 +42,7 @@ export class UserController {
   }
 
   @Post('login')
+  @AllowAnonymous()
   async login(@Req() req: Request, @Body() body: LoginDto) {
     return await this.userService.login(body.email, body.password, req.get('user-agent'));
   }
