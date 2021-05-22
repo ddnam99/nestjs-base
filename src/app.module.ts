@@ -9,11 +9,10 @@ import { ConnectionsModule } from '$connections/connections.module';
 import { WorkersModule } from '$workers/workers.module';
 import { EventEmitterModule } from '@nestjs/event-emitter';
 import { QueuesModule } from '$queues/queues.module';
+import { LoggerMiddleware } from '$middlewares/logger.middleware';
 
 @Module({
   imports: [
-    TypeOrmModule.forRoot(),
-    EventEmitterModule.forRoot(),
     ConnectionsModule,
     ServicesModule,
     ControllersModule,
@@ -22,11 +21,11 @@ import { QueuesModule } from '$queues/queues.module';
     WorkersModule,
     QueuesModule,
   ],
-  controllers: [],
   providers: [ConnectionsModule, ServicesModule],
 })
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
+    consumer.apply(LoggerMiddleware).forRoutes({ path: '*', method: RequestMethod.ALL });
     consumer.apply(AuthMiddleware).forRoutes({ path: '*', method: RequestMethod.ALL });
   }
 }

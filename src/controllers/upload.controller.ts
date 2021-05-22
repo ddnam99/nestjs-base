@@ -1,4 +1,4 @@
-import { ApiFile, ApiFiles, MulterConfig } from '$helpers/file.helper';
+import { ApiFile, ApiFiles, MulterConfig } from '$helpers/swagger.helper';
 import {
   Controller,
   Get,
@@ -19,8 +19,6 @@ import {
   ApiParam,
   ApiTags,
 } from '@nestjs/swagger';
-import { diskStorage } from 'multer';
-import { extname } from 'path';
 
 @ApiBearerAuth()
 @ApiTags('upload')

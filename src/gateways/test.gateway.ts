@@ -13,7 +13,7 @@ import { UserService } from '$services/user.service';
 import { RedisService } from '$connections/redis.provider';
 import { EventAction } from '$events/EventAction';
 
-@WebSocketGateway()
+@WebSocketGateway({ path: '/test-gateway' })
 @Injectable()
 export class TestGateway implements OnGatewayInit, OnGatewayConnection, OnGatewayDisconnect {
   @WebSocketServer() server: Server;
