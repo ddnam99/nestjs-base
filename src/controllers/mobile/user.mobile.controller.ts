@@ -2,8 +2,8 @@ import { generateToken } from '$helpers/auth.helper';
 import { AllowAnonymous } from '$helpers/decorator.helper';
 import { ChangePasswordDto, LoginDto } from '$models/auth.dto';
 import { RegisterDto } from '$models/user.dto';
-import { TokenService } from '$services/token.service';
-import { UserService } from '$services/user.service';
+import { TokenService } from '$services/common/token.service';
+import { UserService } from '$services/common/user.service';
 import {
   Body,
   ClassSerializerInterceptor,
@@ -22,7 +22,7 @@ import { Request } from 'express';
 @ApiBearerAuth()
 @ApiTags('user')
 @Controller('user')
-export class UserController {
+export class UserMobileController {
   constructor(
     private readonly userService: UserService,
     private readonly tokenService: TokenService,

@@ -7,7 +7,7 @@ import {
   ManyToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
-import { UserEntity } from './Users';
+import { UserEntity } from './Users.entity';
 
 @Index('pk_tokens', ['accessToken'], { unique: true })
 @Index('ix_tokens_user_id', ['userId'], {})

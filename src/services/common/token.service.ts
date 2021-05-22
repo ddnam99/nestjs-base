@@ -1,5 +1,6 @@
 import config from '$config';
-import { TokenEntity } from '$entities/Token';
+import { RedisService } from '$connections/redis.provider';
+import { TokenEntity } from '$entities/Token.entity';
 import { Injectable, Logger } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Connection, Repository } from 'typeorm';
@@ -11,6 +12,7 @@ export class TokenService {
     @InjectRepository(TokenEntity)
     private readonly tokenRepository: Repository<TokenEntity>,
     private readonly connection: Connection,
+    private readonly redisService: RedisService,
   ) {}
 
   async create(userId: string, userAgent: string) {
@@ -23,7 +25,13 @@ export class TokenService {
       userAgent: userAgent,
     });
   }
+
   async findByAccessToken(accessToken: string) {
     return await this.tokenRepository.findOne({ where: { accessToken: accessToken } });
+  }
+
+  async destroyToken(accessToken: string) {
+    await this.tokenRepository.delete({ accessToken: accessToken });
+    await this.redisService.del(`Token:${accessToken}`);
   }
 }

@@ -4,17 +4,13 @@ import {
   UpdateDateColumn,
   Entity,
   Index,
-  JoinColumn,
-  ManyToMany,
-  ManyToOne,
   OneToMany,
-  OneToOne,
   PrimaryGeneratedColumn,
-  PrimaryColumn,
-  BeforeInsert,
-  BeforeUpdate,
+  ManyToMany,
 } from 'typeorm';
-import { TokenEntity } from './Token';
+import { OtpEntity } from './Otps.entity';
+import { RoleEntity } from './Roles.entity';
+import { TokenEntity } from './Token.entity';
 
 @Index('ak_users_email', ['email'], { unique: true })
 @Index('pk_users', ['id'], { unique: true })
@@ -73,4 +69,10 @@ export class UserEntity {
 
   @OneToMany(() => TokenEntity, tokens => tokens.user)
   tokens: TokenEntity[];
+
+  @ManyToMany(() => RoleEntity, roles => roles.users)
+  roles: RoleEntity[];
+
+  @OneToMany(() => OtpEntity, otps => otps.user)
+  otps: OtpEntity[];
 }

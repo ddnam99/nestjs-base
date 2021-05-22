@@ -1,8 +1,9 @@
-import { RedisService } from '$connections/redis.provider';
-import { RedisConstant } from '$constants/redis.constant';
-import { UserService } from '$services/user.service';
 import { Injectable, Logger, OnModuleInit } from '@nestjs/common';
+
 import Redis from 'ioredis';
+import { RedisConstant } from '$constants/redis.constant';
+import { RedisService } from '$connections/redis.provider';
+import { UserService } from '$services/common/user.service';
 
 @Injectable()
 export class BackendWorker implements OnModuleInit {

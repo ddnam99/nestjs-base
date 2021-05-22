@@ -1,11 +1,10 @@
-import { UserEntity } from '$entities/Users';
 import { RegisterDto } from '$models/user.dto';
 import { BadRequestException, Injectable, Logger, UnauthorizedException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Connection, getRepository, Repository } from 'typeorm';
 import { compareSync, hashSync } from 'bcryptjs';
-import { TokenEntity } from '$entities/Token';
 import { TokenService } from './token.service';
+import { UserEntity } from '$entities/Users.entity';
 
 @Injectable()
 export class UserService {

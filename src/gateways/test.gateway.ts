@@ -1,17 +1,19 @@
+import * as _ from 'lodash';
+
+import { Injectable, Logger } from '@nestjs/common';
 import {
-  SubscribeMessage,
-  WebSocketGateway,
-  OnGatewayInit,
-  WebSocketServer,
   OnGatewayConnection,
   OnGatewayDisconnect,
+  OnGatewayInit,
+  SubscribeMessage,
+  WebSocketGateway,
+  WebSocketServer,
 } from '@nestjs/websockets';
-import { Logger, Injectable } from '@nestjs/common';
-import { Socket, Server } from 'socket.io';
-import * as _ from 'lodash';
-import { UserService } from '$services/user.service';
-import { RedisService } from '$connections/redis.provider';
+import { Server, Socket } from 'socket.io';
+
 import { EventAction } from '$events/EventAction';
+import { RedisService } from '$connections/redis.provider';
+import { UserService } from '$services/common/user.service';
 
 @WebSocketGateway({ path: '/test-gateway' })
 @Injectable()
