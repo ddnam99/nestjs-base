@@ -1,11 +1,11 @@
 import { RedisService } from '$connections/redis.provider';
 import { RedisConstant } from '$constants/redis.constant';
 import { UserService } from '$services/user.service';
-import { Injectable, Logger } from '@nestjs/common';
+import { Injectable, Logger, OnModuleInit } from '@nestjs/common';
 import Redis from 'ioredis';
 
 @Injectable()
-export class BackendWorker {
+export class BackendWorker implements OnModuleInit {
   private readonly logger = new Logger(BackendWorker.name);
   private readonly redis: Redis.Redis;
   constructor(
@@ -13,7 +13,9 @@ export class BackendWorker {
     private readonly userService: UserService,
   ) {
     this.redis = redisService.getInstance();
+  }
 
+  onModuleInit() {
     this.redis.subscribe(RedisConstant.BACKEND_WORKER_CHANEL, (err, count) => {
       if (err) {
         // Just like other commands, subscribe() can fail for some reasons,
