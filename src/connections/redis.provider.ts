@@ -51,6 +51,10 @@ export class RedisService {
     }
   }
 
+  async publish(chanel: string, data: any) {
+    await this.redis.publish(chanel, JSON.stringify(data));
+  }
+
   getInstance() {
     return this.redis;
   }
