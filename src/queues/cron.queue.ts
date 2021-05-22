@@ -6,16 +6,16 @@ import { InjectQueue, Process, Processor } from '@nestjs/bull';
 import { QueueConstant, QueueJobConstant } from '$constants/queue.constant';
 
 @Injectable()
-@Processor(QueueConstant.TEST_CHANEL)
-export class TestQueue {
-  private readonly logger = new Logger(TestQueue.name);
+@Processor(QueueConstant.CRON_CHANEL)
+export class CronQueue {
+  private readonly logger = new Logger(CronQueue.name);
 
-  constructor(@InjectQueue(QueueConstant.TEST_CHANEL) private readonly testQueue: Queue) {}
+  constructor(@InjectQueue(QueueConstant.CRON_CHANEL) private readonly cronQueue: Queue) {}
 
-  @OnEvent(EmitterConstant.TEST_EVENT)
+  @OnEvent(EmitterConstant.CRON_EVENT)
   handleOrderCreatedEvent(payload: any) {
-    this.logger.log(`Received data form event: ${EmitterConstant.TEST_EVENT}`);
-    this.testQueue.add(QueueJobConstant.LOG, payload);
+    this.logger.log(`Received data form event: ${EmitterConstant.CRON_EVENT}`);
+    this.cronQueue.add(QueueJobConstant.LOG, payload);
   }
 
   @Process(QueueJobConstant.LOG)

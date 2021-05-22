@@ -8,10 +8,10 @@ import { EmitterConstant } from '$constants/emitter.constant';
 @ApiTags('test')
 @Controller('test')
 export class TestController {
-  constructor(private eventEmitter: EventEmitter2) {}
+  constructor(private readonly eventEmitter: EventEmitter2) {}
 
   @Get()
-  getCurrentUser(@Req() req: Request) {
-    this.eventEmitter.emitAsync(EmitterConstant.TEST_EVENT, { message: 'abc123' });
+  async getCurrentUser(@Req() req: Request) {
+    await this.eventEmitter.emitAsync(EmitterConstant.TEST_EVENT, { message: 'abc123' });
   }
 }
