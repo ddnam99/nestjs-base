@@ -12,7 +12,7 @@ export class BackendWorker implements OnModuleInit {
     private readonly redisService: RedisService,
     private readonly userService: UserService,
   ) {
-    this.redis = redisService.getInstance();
+    this.redis = redisService.getNewInstance();
   }
 
   onModuleInit() {

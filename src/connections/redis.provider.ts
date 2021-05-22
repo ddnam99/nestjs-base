@@ -8,11 +8,7 @@ export class RedisService {
   private readonly redis: Redis.Redis;
 
   constructor() {
-    this.redis = new Redis({
-      host: config.ENV.REDIS_HOST,
-      port: config.ENV.REDIS_PORT,
-      password: config.ENV.REDIS_PASS,
-    });
+    this.redis = this.getNewInstance();
   }
 
   async keys(pattern: string) {
@@ -55,7 +51,11 @@ export class RedisService {
     await this.redis.publish(chanel, JSON.stringify(data));
   }
 
-  getInstance() {
-    return this.redis;
+  getNewInstance() {
+    return new Redis({
+      host: config.ENV.REDIS_HOST,
+      port: config.ENV.REDIS_PORT,
+      password: config.ENV.REDIS_PASS,
+    });
   }
 }
