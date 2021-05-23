@@ -1,4 +1,4 @@
-import { AllowAnonymous } from '$helpers/decorator.helper';
+import { AllowAnonymous, MobileController } from '$helpers/decorator.helper';
 import { ChangePasswordDto, LoginDto } from '$models/auth.dto';
 import { RegisterDto } from '$models/user.dto';
 import { TokenService } from '$services/common/token.service';
@@ -9,7 +9,7 @@ import { Request } from 'express';
 
 @ApiBearerAuth()
 @ApiTags('auth')
-@Controller('mobile/auth')
+@MobileController('auth')
 export class AuthMobileController {
   constructor(
     private readonly userService: UserService,

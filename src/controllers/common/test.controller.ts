@@ -3,11 +3,11 @@ import { ApiBearerAuth, ApiBody, ApiOperation, ApiTags } from '@nestjs/swagger';
 import { Request } from 'express';
 import { EventEmitter2 } from '@nestjs/event-emitter';
 import { EmitterConstant } from '$constants/emitter.constant';
-import { AllowAnonymous } from '$helpers/decorator.helper';
+import { AllowAnonymous, CommonController } from '$helpers/decorator.helper';
 
 @ApiBearerAuth()
 @ApiTags('test')
-@Controller('test')
+@CommonController('test')
 @AllowAnonymous()
 export class TestController {
   constructor(private readonly eventEmitter: EventEmitter2) {}

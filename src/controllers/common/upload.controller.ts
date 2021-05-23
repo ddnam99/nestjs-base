@@ -1,3 +1,4 @@
+import { CommonController } from '$helpers/decorator.helper';
 import { ApiFile, ApiFiles, MulterConfig } from '$helpers/swagger.helper';
 import {
   Controller,
@@ -22,7 +23,7 @@ import {
 
 @ApiBearerAuth()
 @ApiTags('upload')
-@Controller('upload')
+@CommonController('upload')
 export class UploadController {
   @Post('file')
   @ApiFile()
