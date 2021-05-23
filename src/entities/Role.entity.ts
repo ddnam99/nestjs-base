@@ -10,11 +10,11 @@ import {
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
-import { PermissionEntity } from './Permissions.entity';
-import { UserEntity } from './Users.entity';
+import { PermissionEntity } from './Permission.entity';
+import { UserEntity } from './User.entity';
 
 @Index('pk_roles', ['id'], { unique: true })
-@Entity('roles', { schema: 'public' })
+@Entity('roles')
 export class RoleEntity {
   @PrimaryGeneratedColumn({ name: 'id' })
   id: number;
@@ -30,9 +30,6 @@ export class RoleEntity {
 
   @Column('boolean', { name: 'static' })
   static: boolean;
-
-  @Column('uuid', { name: 'merchant_id' })
-  merchantId: string;
 
   @CreateDateColumn({ name: 'created_date', type: 'datetime' })
   createdDate: Date;

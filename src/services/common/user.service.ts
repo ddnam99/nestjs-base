@@ -4,11 +4,12 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Connection, getRepository, Repository } from 'typeorm';
 import { compareSync, hashSync } from 'bcryptjs';
 import { TokenService } from './token.service';
-import { UserEntity } from '$entities/Users.entity';
+import { UserEntity } from '$entities/User.entity';
 
 @Injectable()
 export class UserService {
   private readonly logger: Logger = new Logger(UserService.name);
+
   constructor(
     @InjectRepository(UserEntity)
     private readonly userRepository: Repository<UserEntity>,

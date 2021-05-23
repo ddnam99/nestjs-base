@@ -8,10 +8,10 @@ import {
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
-import { RoleEntity } from './Roles.entity';
+import { RoleEntity } from './Role.entity';
 
 @Index('pk_permissions', ['id'], { unique: true })
-@Entity('permissions', { schema: 'public' })
+@Entity('permissions')
 export class PermissionEntity {
   @PrimaryGeneratedColumn({ name: 'id' })
   id: number;
@@ -24,9 +24,6 @@ export class PermissionEntity {
 
   @Column('uuid', { name: 'parent_permission_id', nullable: true })
   parentPermissionId: string | null;
-
-  @Column('uuid', { name: 'merchant_id' })
-  merchantId: string;
 
   @CreateDateColumn({ name: 'created_date', type: 'datetime' })
   createdDate: Date;

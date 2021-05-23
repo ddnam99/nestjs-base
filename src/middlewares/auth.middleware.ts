@@ -5,7 +5,7 @@ import { CurrentUser } from '$models/auth.dto';
 import { RedisService } from 'connections/redis.provider';
 import { TokenEntity } from '$entities/Token.entity';
 import { TokenService } from '$services/common/token.service';
-import { UserEntity } from '$entities/Users.entity';
+import { UserEntity } from '$entities/User.entity';
 import { UserService } from '$services/common/user.service';
 
 @Injectable()

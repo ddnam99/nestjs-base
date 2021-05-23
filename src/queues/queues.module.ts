@@ -5,9 +5,14 @@ import { QueueConstant } from '$constants/queue.constant';
 
 @Module({
   imports: [
-    BullModule.registerQueue({
-      name: QueueConstant.TEST_CHANEL,
-    }),
+    BullModule.registerQueue(
+      {
+        name: QueueConstant.TEST_CHANEL,
+      },
+      {
+        name: QueueConstant.CRON_CHANEL,
+      },
+    ),
   ],
   providers: [TestQueue],
   exports: [TestQueue],

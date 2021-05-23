@@ -7,11 +7,11 @@ import {
   ManyToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
-import { UserEntity } from './Users.entity';
+import { UserEntity } from './User.entity';
 
 @Index('pk_tokens', ['accessToken'], { unique: true })
 @Index('ix_tokens_user_id', ['userId'], {})
-@Entity('tokens', { schema: 'public' })
+@Entity('tokens')
 export class TokenEntity {
   @PrimaryGeneratedColumn('uuid', { name: 'access_token' })
   accessToken: string;

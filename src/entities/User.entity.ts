@@ -8,8 +8,7 @@ import {
   PrimaryGeneratedColumn,
   ManyToMany,
 } from 'typeorm';
-import { OtpEntity } from './Otps.entity';
-import { RoleEntity } from './Roles.entity';
+import { RoleEntity } from './Role.entity';
 import { TokenEntity } from './Token.entity';
 
 @Index('ak_users_email', ['email'], { unique: true })
@@ -72,7 +71,4 @@ export class UserEntity {
 
   @ManyToMany(() => RoleEntity, roles => roles.users)
   roles: RoleEntity[];
-
-  @OneToMany(() => OtpEntity, otps => otps.user)
-  otps: OtpEntity[];
 }
