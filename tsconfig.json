@@ -26,8 +26,8 @@
       "$middlewares/*": ["middlewares/*"],
       "$models/*": ["models/*"],
       "$queues/*": ["queues/*"],
+      "$schedules/*": ["schedules/*"],
       "$services/*": ["services/*"],
-      "$tasks/*": ["tasks/*"],
       "$types/*": ["types/*"],
       "$utils/*": ["utils/*"],
       "$workers/*": ["workers/*"]
