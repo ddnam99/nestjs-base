@@ -1,15 +1,13 @@
 import { MiddlewareConsumer, Module, NestModule, RequestMethod } from '@nestjs/common';
-import { TypeOrmModule } from '@nestjs/typeorm';
 import { AuthMiddleware } from '$middlewares/auth.middleware';
 import { ServicesModule } from '$services/services.module';
 import { ControllersModule } from '$controllers/controllers.module';
 import { GatewaysModule } from '$gateways/gateways.module';
-import { TasksModule } from 'tasks/tasks.module';
 import { ConnectionsModule } from '$connections/connections.module';
 import { WorkersModule } from '$workers/workers.module';
-import { EventEmitterModule } from '@nestjs/event-emitter';
 import { QueuesModule } from '$queues/queues.module';
 import { LoggerMiddleware } from '$middlewares/logger.middleware';
+import { SchedulesModule } from '$schedules/schedules.module';
 
 @Module({
   imports: [
@@ -17,7 +15,7 @@ import { LoggerMiddleware } from '$middlewares/logger.middleware';
     ServicesModule,
     ControllersModule,
     GatewaysModule,
-    TasksModule,
+    SchedulesModule,
     WorkersModule,
     QueuesModule,
   ],

@@ -2,6 +2,7 @@ import { Module } from '@nestjs/common';
 import { TestQueue } from './test.queue';
 import { BullModule } from '@nestjs/bull';
 import { QueueConstant } from '$constants/queue.constant';
+import { CronQueue } from './cron.queue';
 
 @Module({
   imports: [
@@ -14,7 +15,7 @@ import { QueueConstant } from '$constants/queue.constant';
       },
     ),
   ],
-  providers: [TestQueue],
-  exports: [TestQueue],
+  providers: [TestQueue, CronQueue],
+  exports: [TestQueue, CronQueue],
 })
 export class QueuesModule {}
