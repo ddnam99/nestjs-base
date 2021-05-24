@@ -1,12 +1,11 @@
 import { Injectable, Logger, NestMiddleware, UnauthorizedException } from '@nestjs/common';
 import { NextFunction, Request, Response } from 'express';
-
-import { CurrentUser } from '$models/auth.dto';
 import { RedisService } from 'connections/redis.provider';
 import { TokenEntity } from '$entities/Token.entity';
 import { TokenService } from '$services/common/token.service';
 import { UserEntity } from '$entities/User.entity';
 import { UserService } from '$services/common/user.service';
+import { CurrentUserDto } from '$models/auth/CurrentUser.dto';
 
 @Injectable()
 export class AuthMiddleware implements NestMiddleware {
@@ -49,7 +48,7 @@ export class AuthMiddleware implements NestMiddleware {
 
         req.accessToken = accessToken;
         req.currentUserId = user.id;
-        req.currentUser = new CurrentUser(user);
+        req.currentUser = new CurrentUserDto(user);
       } catch (error) {
         this.logger.error(error.message);
         throw new UnauthorizedException(error.message);

@@ -1,7 +1,7 @@
 import config from '$config';
 import { RedisService } from '$connections/redis.provider';
 import { TokenEntity } from '$entities/Token.entity';
-import { Injectable, Logger } from '@nestjs/common';
+import { Injectable, Logger, UnauthorizedException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Connection, Repository } from 'typeorm';
 
@@ -33,5 +33,21 @@ export class TokenService {
   async destroyToken(accessToken: string) {
     await this.tokenRepository.delete({ accessToken: accessToken });
     await this.redisService.del(`Token:${accessToken}`);
+  }
+
+  async refreshToken(userId: string, accessToken: string, refreshToken: string, userAgent: string) {
+    const token = await this.findByAccessToken(accessToken);
+
+    if (
+      token.userId !== userId ||
+      token.refreshToken !== refreshToken ||
+      token.expiresRefresh < new Date()
+    ) {
+      throw new UnauthorizedException('error.RefreshTokenFailed');
+    }
+
+    await this.destroyToken(accessToken);
+
+    return await this.create(userId, userAgent);
   }
 }

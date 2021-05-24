@@ -5,6 +5,6 @@ declare namespace Express {
   interface Request {
     accessToken?: string;
     currentUserId?: string;
-    currentUser?: import('$models/auth.dto').CurrentUser;
+    currentUser?: import('$models/auth/CurrentUser.dto').CurrentUserDto;
   }
 }

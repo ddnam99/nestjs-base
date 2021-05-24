@@ -1,7 +1,6 @@
+import { Trim } from '$utils/transformers';
 import { ApiProperty } from '@nestjs/swagger';
-import { Exclude, Expose } from 'class-transformer';
 import { IsEmail, IsNotEmpty, IsString, MinLength } from 'class-validator';
-import { Trim } from 'utils/transformers';
 
 export class RegisterDto {
   @IsEmail()

@@ -1,6 +1,8 @@
 import { AllowAnonymous, MobileController } from '$helpers/decorator.helper';
-import { ChangePasswordDto, LoginDto } from '$models/auth.dto';
-import { RegisterDto } from '$models/user.dto';
+import { ChangePasswordDto } from '$models/auth/ChangePassword.dto';
+import { LoginDto } from '$models/auth/Login.dto';
+import { RefreshTokenDto } from '$models/auth/RefreshToken.dto';
+import { RegisterDto } from '$models/auth/Register.dto';
 import { TokenService } from '$services/common/token.service';
 import { UserService } from '$services/common/user.service';
 import { Body, Controller, Post, Req } from '@nestjs/common';
@@ -35,6 +37,16 @@ export class AuthMobileController {
       req.currentUserId,
       body.oldPassword,
       body.newPassword,
+    );
+  }
+
+  @Post('refresh-token')
+  async refreshToken(@Req() req: Request, @Body() body: RefreshTokenDto) {
+    return await this.tokenService.refreshToken(
+      req.currentUserId,
+      req.accessToken,
+      body.refreashToken,
+      req.get('user-agent'),
     );
   }
 }
