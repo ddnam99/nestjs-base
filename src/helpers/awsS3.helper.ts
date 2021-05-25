@@ -1,6 +1,7 @@
 import config from '$config';
 import * as AWS from 'aws-sdk';
 import * as md5 from 'md5';
+import * as url from 'url';
 
 const s3 = new AWS.S3({
   secretAccessKey: config.ENV.AWS_S3_SECRET_ACCESS_KEY,
@@ -17,5 +18,10 @@ export const getPresignedUrl = async (filename: string, contentType: string) => 
     ContentType: contentType,
   });
 
-  return urlPut;
+  const urlParsed = url.parse(urlPut, true);
+
+  return {
+    urlImage: `${urlParsed.protocol}//${urlParsed.host}${urlParsed.pathname}`,
+    urlUpload: urlPut,
+  };
 };
