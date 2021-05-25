@@ -1,6 +1,9 @@
+import { getPresignedUrl } from '$helpers/awsS3.helper';
 import { CommonController } from '$helpers/decorator.helper';
 import { ApiFile, ApiFiles, MulterConfig } from '$helpers/swagger.helper';
+import { GetPresignedUrlDto } from '$models/upload/GetPresignedUrl.dto';
 import {
+  Body,
   Controller,
   Get,
   Param,
@@ -20,6 +23,7 @@ import {
   ApiParam,
   ApiTags,
 } from '@nestjs/swagger';
+import { Request } from 'express';
 
 @ApiBearerAuth()
 @ApiTags('upload')
@@ -61,5 +65,10 @@ export class UploadController {
   @ApiParam({ name: 'img', required: true })
   seeUploadedFile(@Param('img') image, @Res() res) {
     return res.sendFile(image, { root: './upload' });
+  }
+
+  @Post('s3/presigned-url')
+  getUrlUpload(@Req() req: Request, @Body() body: GetPresignedUrlDto) {
+    return getPresignedUrl(body.filename, body.contentType);
   }
 }

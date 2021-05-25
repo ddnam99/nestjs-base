@@ -16,4 +16,9 @@ export const Environment = {
 
   SENDGRID_API_KEY: process.env.SENDGRID_API_KEY,
   SENDGRID_EMAIL: process.env.SENDGRID_MAIL,
+
+  AWS_S3_SECRET_ACCESS_KEY: process.env.AWS_S3_SECRET_ACCESS_KEY,
+  AWS_S3_ACCESS_KEY_ID: process.env.AWS_S3_ACCESS_KEY_ID,
+  AWS_S3_REGION: process.env.AWS_S3_REGION,
+  AWS_S3_BUCKET: process.env.AWS_S3_BUCKET,
 };
