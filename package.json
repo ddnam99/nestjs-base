@@ -75,6 +75,7 @@
     "request": "^2.88.2",
     "rimraf": "^3.0.2",
     "rxjs": "^6.6.3",
+    "stripe": "^8.149.0",
     "swagger-ui-express": "^4.1.6",
     "twilio": "^3.62.0",
     "typeorm": "^0.2.32"

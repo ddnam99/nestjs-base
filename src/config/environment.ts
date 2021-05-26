@@ -21,4 +21,6 @@ export const Environment = {
   AWS_S3_ACCESS_KEY_ID: process.env.AWS_S3_ACCESS_KEY_ID,
   AWS_S3_REGION: process.env.AWS_S3_REGION,
   AWS_S3_BUCKET: process.env.AWS_S3_BUCKET,
+
+  STRIPE_KEY: process.env.STRIPE_KEY,
 };
