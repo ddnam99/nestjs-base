@@ -5,10 +5,14 @@ import Redis from 'ioredis';
 @Injectable()
 export class RedisService {
   private readonly logger: Logger = new Logger(RedisService.name);
-  private readonly redis: Redis.Redis;
+  public readonly redis: Redis.Redis;
 
   constructor() {
-    this.redis = this.getNewInstance();
+    this.redis = new Redis({
+      host: config.ENV.REDIS_HOST,
+      port: config.ENV.REDIS_PORT,
+      password: config.ENV.REDIS_PASS,
+    });
   }
 
   async keys(pattern: string) {
@@ -52,10 +56,6 @@ export class RedisService {
   }
 
   getNewInstance() {
-    return new Redis({
-      host: config.ENV.REDIS_HOST,
-      port: config.ENV.REDIS_PORT,
-      password: config.ENV.REDIS_PASS,
-    });
+    return new RedisService();
   }
 }

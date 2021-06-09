@@ -3,17 +3,13 @@ import { Injectable, Logger, OnModuleInit } from '@nestjs/common';
 import Redis from 'ioredis';
 import { RedisConstant } from '$constants/redis.constant';
 import { RedisService } from '$connections/redis.provider';
-import { UserService } from '$services/common/user.service';
 
 @Injectable()
 export class BackendWorker implements OnModuleInit {
   private readonly logger = new Logger(BackendWorker.name);
   private readonly redis: Redis.Redis;
-  constructor(
-    private readonly redisService: RedisService,
-    private readonly userService: UserService,
-  ) {
-    this.redis = redisService.getNewInstance();
+  constructor(redisService: RedisService) {
+    this.redis = redisService.getNewInstance().redis;
   }
 
   onModuleInit() {
