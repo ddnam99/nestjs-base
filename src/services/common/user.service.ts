@@ -5,6 +5,7 @@ import { compareSync, hashSync } from 'bcryptjs';
 import { TokenService } from './token.service';
 import { UserEntity } from '$entities/User.entity';
 import { RegisterDto } from '$models/auth/Register.dto';
+import { RedisService } from '$connections/redis.provider';
 
 @Injectable()
 export class UserService {
@@ -14,6 +15,7 @@ export class UserService {
     @InjectRepository(UserEntity)
     private readonly userRepository: Repository<UserEntity>,
     private readonly tokenService: TokenService,
+    private readonly redisService: RedisService,
     private readonly connection: Connection,
   ) {}
 
@@ -30,6 +32,7 @@ export class UserService {
     user.lastName = data.lastName;
     user.email = data.email;
     user.passwordHash = await hashSync(data.password);
+    user.lastLoginDate = new Date();
 
     user = await this.userRepository.save(user);
     return user.id;
@@ -42,6 +45,11 @@ export class UserService {
 
     const isPasswordCorrect = await compareSync(password, user.passwordHash);
     if (!isPasswordCorrect) throw new UnauthorizedException('error.EmailOrPasswordInCorrect');
+
+    user.lastLoginDate = new Date();
+
+    await this.userRepository.save(user);
+    await this.redisService.set(`User:${user.id}`, user);
 
     return await this.tokenService.create(user.id, userAgent);
   }
