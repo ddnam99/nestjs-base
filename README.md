@@ -16,4 +16,4 @@ Command:
 Run project with command `yarn start:debug` and press `f5` key to debug
 
 ## Build docker image
-Run `docker build -t nestjs-base .` to build docker imagse
+Run `docker build -t nestjs-base .` to build docker image
