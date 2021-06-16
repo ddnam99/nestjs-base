@@ -14,6 +14,12 @@ export class TestController {
 
   @Get()
   async getCurrentUser(@Req() req: Request) {
-    await this.eventEmitter.emitAsync(EmitterConstant.TEST_EVENT, { message: 'abc123' });
+    await this.eventEmitter.emitAsync(EmitterConstant.EMIT_TO_CLIENT, {
+      userId: '14d85d07-3f0c-4b7a-9074-34fbfa6f12a1',
+      event: 'test',
+      payload: {
+        message: 'demo',
+      },
+    });
   }
 }

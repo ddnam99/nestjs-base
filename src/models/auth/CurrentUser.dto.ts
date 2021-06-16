@@ -1,6 +1,6 @@
 import { Exclude, Expose } from 'class-transformer';
 
-export class CurrentUserDto {
+export class UserDto {
   id: string;
   lastName: string;
   firstName: string;
@@ -22,7 +22,7 @@ export class CurrentUserDto {
     return `${this.firstName} ${this.lastName}`;
   }
 
-  constructor(partial: Partial<CurrentUserDto>) {
+  constructor(partial: Partial<UserDto>) {
     Object.assign(this, partial);
   }
 }

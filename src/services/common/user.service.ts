@@ -6,6 +6,7 @@ import { TokenService } from './token.service';
 import { UserEntity } from '$entities/User.entity';
 import { RegisterDto } from '$models/auth/Register.dto';
 import { RedisService } from '$connections/redis.provider';
+import { UserDto } from '$models/auth/CurrentUser.dto';
 
 @Injectable()
 export class UserService {
@@ -63,5 +64,13 @@ export class UserService {
     user.passwordHash = await hashSync(newPassword);
 
     await this.userRepository.save(user);
+  }
+
+  async findUserByAccessToken(accessToken: string) {
+    const token = await this.tokenService.findByAccessToken(accessToken);
+
+    const user = await this.getById(token.userId);
+
+    return new UserDto(user);
   }
 }

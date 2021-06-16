@@ -5,7 +5,7 @@ import { TokenEntity } from '$entities/Token.entity';
 import { TokenService } from '$services/common/token.service';
 import { UserEntity } from '$entities/User.entity';
 import { UserService } from '$services/common/user.service';
-import { CurrentUserDto } from '$models/auth/CurrentUser.dto';
+import { UserDto } from '$models/auth/CurrentUser.dto';
 
 @Injectable()
 export class AuthMiddleware implements NestMiddleware {
@@ -48,7 +48,7 @@ export class AuthMiddleware implements NestMiddleware {
 
         req.accessToken = accessToken;
         req.currentUserId = user.id;
-        req.currentUser = new CurrentUserDto(user);
+        req.currentUser = new UserDto(user);
       } catch (error) {
         this.logger.error(error.message);
         throw new UnauthorizedException(error.message);
