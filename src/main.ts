@@ -28,7 +28,9 @@ async function bootstrap() {
   swaggerSetup(app);
 
   await app.listen(config.ENV.SERVER_PORT, () => {
-    logger.log(`=========== 🕵  Server️ running on port:${config.ENV.SERVER_PORT} ===========‍`);
+    logger.log(
+      `=========== 🕵  Server️ running on http://localhost:${config.ENV.SERVER_PORT} ===========‍`,
+    );
   });
 }
 bootstrap();

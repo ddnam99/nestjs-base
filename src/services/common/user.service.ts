@@ -7,6 +7,7 @@ import { UserEntity } from '$entities/User.entity';
 import { RegisterDto } from '$models/auth/Register.dto';
 import { RedisService } from '$connections/redis.provider';
 import { UserDto } from '$models/auth/CurrentUser.dto';
+import { TokenEntity } from '$entities/Token.entity';
 
 @Injectable()
 export class UserService {
@@ -67,9 +68,24 @@ export class UserService {
   }
 
   async findUserByAccessToken(accessToken: string) {
-    const token = await this.tokenService.findByAccessToken(accessToken);
+    let token = await this.redisService.get<TokenEntity>(`Token:${accessToken}`);
+    if (!token) {
+      token = await this.tokenService.findByAccessToken(accessToken);
 
-    const user = await this.getById(token.userId);
+      if (!token) return null;
+    }
+
+    if (token.expires < new Date()) {
+      await this.redisService.del(`Token:${accessToken}`);
+      return null;
+    }
+
+    await this.redisService.set(`Token:${accessToken}`, token);
+    let user = await this.redisService.get<UserEntity>(`User:${token.userId}`);
+    if (!user) {
+      user = await this.getById(token.userId);
+      await this.redisService.set(`User:${token.userId}`, user);
+    }
 
     return new UserDto(user);
   }
