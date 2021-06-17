@@ -4,17 +4,18 @@ import { Request } from 'express';
 import { EventEmitter2 } from '@nestjs/event-emitter';
 import { EmitterConstant } from '$constants/emitter.constant';
 import { AllowAnonymous, CommonController } from '$helpers/decorator.helper';
+import { EmitterService } from '$services/common/emitter.service';
 
 @ApiBearerAuth()
 @ApiTags('test')
 @CommonController('test')
 @AllowAnonymous()
 export class TestController {
-  constructor(private readonly eventEmitter: EventEmitter2) {}
+  constructor(private readonly emitterService: EmitterService) {}
 
   @Get()
   async getCurrentUser(@Req() req: Request) {
-    await this.eventEmitter.emitAsync(EmitterConstant.EMIT_TO_CLIENT, {
+    await this.emitterService.emitToClient({
       userId: '14d85d07-3f0c-4b7a-9074-34fbfa6f12a1',
       event: 'test',
       payload: {
