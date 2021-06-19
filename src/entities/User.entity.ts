@@ -51,6 +51,9 @@ export class UserEntity {
   })
   lastLoginDate: Date | null;
 
+  @Column('tinyint', { name: 'is_online', default: 0 })
+  isOnline: boolean;
+
   @Column('tinyint', { name: 'deleted', default: 0 })
   deleted: boolean;
 

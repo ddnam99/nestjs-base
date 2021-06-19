@@ -6,10 +6,7 @@ import { EmitterConstant } from '$constants/emitter.constant';
 import { AllowAnonymous, CommonController } from '$helpers/decorator.helper';
 import { EmitterService } from '$services/common/emitter.service';
 
-@ApiBearerAuth()
-@ApiTags('test')
 @CommonController('test')
-@AllowAnonymous()
 export class TestController {
   constructor(private readonly emitterService: EmitterService) {}
 

@@ -5,8 +5,6 @@ import { Body, Controller, Get, Post, Req } from '@nestjs/common';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { Request } from 'express';
 
-@ApiBearerAuth()
-@ApiTags('user')
 @MobileController('user')
 export class UserMobileController {
   constructor(

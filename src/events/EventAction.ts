@@ -11,5 +11,7 @@ export const EventAction = {
    */
   disconnect: 'client-disconnect',
 
-  test_action: 'test_action',
+  client_join_conversation: 'client_join_conversation',
+
+  server_send_message_to_conversation: 'server_send_message_to_conversation',
 };

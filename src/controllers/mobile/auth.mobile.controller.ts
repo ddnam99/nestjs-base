@@ -8,9 +8,6 @@ import { UserService } from '$services/common/user.service';
 import { Body, Controller, Post, Req } from '@nestjs/common';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { Request } from 'express';
-
-@ApiBearerAuth()
-@ApiTags('auth')
 @MobileController('auth')
 export class AuthMobileController {
   constructor(

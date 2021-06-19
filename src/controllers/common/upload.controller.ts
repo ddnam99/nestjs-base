@@ -25,8 +25,6 @@ import {
 } from '@nestjs/swagger';
 import { Request } from 'express';
 
-@ApiBearerAuth()
-@ApiTags('upload')
 @CommonController('upload')
 export class UploadController {
   @Post('file')

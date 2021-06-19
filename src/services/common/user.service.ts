@@ -89,4 +89,16 @@ export class UserService {
 
     return new UserDto(user);
   }
+
+  async setOnlineStatus(memberId: string, isOnline: boolean) {
+    if (isOnline) {
+      await this.userRepository.update({ id: memberId }, { lastLoginDate: new Date(), isOnline });
+    } else {
+      await this.userRepository.update({ id: memberId }, { isOnline });
+    }
+  }
+
+  async getUsers(userIds: string[]) {
+    return await this.userRepository.findByIds(userIds);
+  }
 }
