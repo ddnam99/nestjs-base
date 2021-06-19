@@ -7,12 +7,13 @@ import { MessageType } from '$enums/chat.enum';
 import { EventAction } from '$events/EventAction';
 import { CreateConversationDto } from '$models/chat/createConversation.dto';
 import { SendMessageDto } from '$models/chat/sendMessage.dto';
+import { SetNicknameDto } from '$models/chat/setNickname.dto';
 import { PagingQuery } from '$models/common/pagingQuery.dto';
 import { BadRequestException, Injectable, Logger } from '@nestjs/common';
 import { EventEmitter2 } from '@nestjs/event-emitter';
 import { InjectRepository } from '@nestjs/typeorm';
 import { auth, messaging } from 'firebase-admin';
-import { Brackets, Connection, Repository } from 'typeorm';
+import { Brackets, Connection, EntityManager, Repository } from 'typeorm';
 import { EmitterService } from './emitter.service';
 import { UserService } from './user.service';
 
@@ -188,18 +189,18 @@ export class ChatService {
       .select(
         'cme.id id, cme.message message, cme.height height, cme.width width, cme.mime_type mimeType',
       )
-      .addSelect('cme.url_meta urlMeta, cme.share_meta shareMeta, cme.share_type shareType')
+      .addSelect('cme.url_meta urlMeta, cme.message_type messageType, cme.created_date createdDate')
       .addSelect(
-        `cme.user_id senderId, if(cm.nickname is not null, cm.nickname, concat(u.first_name, ' ', u.last_name)) senderName`,
+        `cme.user_id senderId, if(cm.nickname is not null, cm.nickname, concat(u.first_name, ' ', u.last_name)) senderName, u.profile_image_url profileImageUrl`,
       )
-      .addSelect('u.profile_image_url profileImageUrl , cme.created_date createdDate')
       .leftJoin(
         'conversation_member',
         'cm',
         'cm.user_id = cme.user_id and cm.conversation_id = cme.conversation_id',
       )
       .leftJoin('users', 'u', 'u.id = cme.user_id')
-      .where('cme.conversation_id = :conversationId', { conversationId });
+      .where('cme.conversation_id = :conversationId', { conversationId })
+      .orderBy('cme.created_date', 'DESC');
 
     if (query.search) {
       queryBuilder.andWhere('position(lower(:search) in lower(cme.message)) != 0', {
@@ -249,5 +250,64 @@ export class ChatService {
     const items = await queryBuilder.skip(query.skip).take(query.take).getRawMany();
 
     return { count, items };
+  }
+
+  async setNickname(currentUserId: string, conversationId: string, data: SetNicknameDto) {
+    return this.connection.transaction(async transaction => {
+      const ConversationMemberRepository = transaction.getRepository(ConversationMemberEntity);
+      const ConversationMessageRepository = transaction.getRepository(ConversationMessageEntity);
+      const isMine = currentUserId === data.userId;
+
+      const conversationMember = await ConversationMemberRepository.findOne({
+        relations: ['user'],
+        where: {
+          userId: currentUserId,
+          conversationId: conversationId,
+        },
+      });
+
+      if (!conversationMember) throw new BadRequestException('error.ConversationNotFound');
+
+      const conversationTargetMember = isMine
+        ? conversationMember
+        : await ConversationMemberRepository.findOne({
+            relations: ['user'],
+            where: {
+              userId: data.userId,
+              conversationId: conversationId,
+            },
+          });
+
+      if (!conversationTargetMember) throw new BadRequestException('error.TargetUserNotFound');
+
+      conversationTargetMember.nickname = data.nickname;
+      await ConversationMemberRepository.save(conversationTargetMember);
+
+      const message = !data.nickname
+        ? `${conversationMember.user.firstName} đã xoá nickname của ${
+            isMine ? 'mình' : conversationTargetMember.user.firstName
+          }`
+        : `${conversationMember.user.firstName} đã đặt nickname của ${
+            isMine ? 'mình' : conversationTargetMember.user.firstName
+          } thành ${data.nickname}`;
+
+      const conversationMessage = await ConversationMessageRepository.save(<
+        ConversationMessageEntity
+      >{
+        message: message,
+        messageType: MessageType.SYSTEM,
+        userId: currentUserId,
+        conversationId: conversationId,
+      });
+
+      conversationMember.lastSeen = conversationMessage.createdDate;
+      await ConversationMemberRepository.save(conversationMember);
+
+      await this.emitterService.emitToConversation({
+        conversationId: conversationId,
+        event: EventAction.server_send_message_to_conversation,
+        payload: conversationMessage,
+      });
+    });
   }
 }

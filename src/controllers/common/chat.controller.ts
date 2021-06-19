@@ -1,10 +1,11 @@
-import { Body, Controller, Get, Param, Post, Query, Req } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, Put, Query, Req } from '@nestjs/common';
 import { Request } from 'express';
 import { AllowAnonymous, CommonController } from '$helpers/decorator.helper';
 import { CreateConversationDto } from '$models/chat/createConversation.dto';
 import { ChatService } from '$services/common/chat.service';
 import { SendMessageDto } from '$models/chat/sendMessage.dto';
 import { PagingQuery } from '$models/common/pagingQuery.dto';
+import { SetNicknameDto } from '$models/chat/setNickname.dto';
 
 @CommonController('chat')
 export class ChatController {
@@ -45,5 +46,14 @@ export class ChatController {
     @Query() query: PagingQuery,
   ) {
     return await this.chatService.getConversationMembers(req.currentUserId, conversationId, query);
+  }
+
+  @Post('/conversation/:conversationId/nickname')
+  async setNickname(
+    @Req() req: Request,
+    @Param('conversationId') conversationId: string,
+    @Body() body: SetNicknameDto,
+  ) {
+    return await this.chatService.setNickname(req.currentUserId, conversationId, body);
   }
 }

@@ -1,3 +1,4 @@
+import { MessageType } from '$enums/chat.enum';
 import {
   Column,
   CreateDateColumn,
@@ -17,23 +18,20 @@ export class ConversationMessageEntity {
   @Column({ charset: 'utf8mb4', nullable: true })
   message?: string;
 
-  @Column({ nullable: true })
+  @Column({ nullable: true, comment: 'lưu chiều cao ảnh' })
   height?: number;
 
-  @Column({ nullable: true })
+  @Column({ nullable: true, comment: 'lưu chiều rộng ảnh' })
   width?: number;
 
-  @Column({ name: 'mime_type', nullable: true })
+  @Column({ name: 'mime_type', nullable: true, comment: 'mimeType file' })
   mimeType?: string;
 
   @Column({ name: 'url_meta', nullable: true, type: 'longtext' })
   urlMeta?: string;
 
-  @Column({ name: 'share_meta', nullable: true, type: 'longtext' })
-  shareMeta?: string;
-
-  @Column({ name: 'share_type', nullable: true })
-  shareType?: string;
+  @Column({ name: 'message_type', nullable: true, default: MessageType.MESSAGE })
+  messageType?: MessageType;
 
   @ManyToOne(() => UserEntity)
   @JoinColumn({ name: 'user_id' })

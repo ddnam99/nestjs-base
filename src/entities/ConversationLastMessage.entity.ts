@@ -1,4 +1,4 @@
-import { MessageType } from 'aws-sdk/clients/configservice';
+import { MessageType } from '$enums/chat.enum';
 import { Column, Entity, JoinColumn, ManyToOne, OneToOne, PrimaryGeneratedColumn } from 'typeorm';
 import { ConversationEntity } from './Conversation.entity';
 import { UserEntity } from './User.entity';
@@ -11,8 +11,8 @@ export class ConversationLastMessageEntity {
   @Column({ charset: 'utf8mb4', nullable: true })
   message?: string;
 
-  @Column({ name: 'message_type', nullable: true })
-  messageType: number;
+  @Column({ name: 'message_type', nullable: true, default: MessageType.MESSAGE })
+  messageType: MessageType;
 
   @Column({ name: 'mime_type', nullable: true })
   mimeType?: string;

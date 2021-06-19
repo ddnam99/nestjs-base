@@ -1,5 +1,6 @@
+import { MessageType } from '$enums/chat.enum';
 import { ApiProperty } from '@nestjs/swagger';
-import { IsNotEmpty, IsNumber, IsOptional } from 'class-validator';
+import { IsEnum, IsNotEmpty, IsNumber, IsOptional } from 'class-validator';
 
 export class SendMessageDto {
   @IsNotEmpty()
@@ -25,10 +26,7 @@ export class SendMessageDto {
   urlMeta?: string;
 
   @IsOptional()
-  @ApiProperty()
-  shareMeta?: string;
-
-  @IsOptional()
-  @ApiProperty()
-  shareType?: string;
+  @IsEnum(MessageType)
+  @ApiProperty({ example: MessageType.MESSAGE })
+  messageType?: MessageType;
 }

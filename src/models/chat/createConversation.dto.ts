@@ -6,10 +6,12 @@ export class CreateConversationDto {
   @IsString()
   @IsOptional()
   name: string;
+
   @IsUrl()
   @IsOptional()
   @ApiProperty()
   thumbnail: string;
+
   @IsArray()
   @IsNotEmpty()
   @ApiProperty({ required: true })

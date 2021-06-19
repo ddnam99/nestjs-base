@@ -6,7 +6,7 @@ export class LoginDto {
   @IsString()
   @IsNotEmpty()
   @Trim()
-  @ApiProperty({ required: true })
+  @ApiProperty({ required: true, example: 'string@gmail.com' })
   email: string;
 
   @IsString()
