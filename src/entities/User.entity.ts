@@ -51,6 +51,12 @@ export class UserEntity {
   })
   lastLoginDate: Date | null;
 
+  @Column('datetime', {
+    name: 'last_online_date',
+    nullable: true,
+  })
+  lastOnlineDate: Date | null;
+
   @Column('tinyint', { name: 'is_online', default: 0 })
   isOnline: boolean;
 

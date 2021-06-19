@@ -42,7 +42,7 @@ export class AuthMobileController {
     return await this.tokenService.refreshToken(
       req.currentUserId,
       req.accessToken,
-      body.refreashToken,
+      body.refreshToken,
       req.get('user-agent'),
     );
   }

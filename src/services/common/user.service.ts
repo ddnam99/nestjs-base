@@ -91,11 +91,7 @@ export class UserService {
   }
 
   async setOnlineStatus(memberId: string, isOnline: boolean) {
-    if (isOnline) {
-      await this.userRepository.update({ id: memberId }, { lastLoginDate: new Date(), isOnline });
-    } else {
-      await this.userRepository.update({ id: memberId }, { isOnline });
-    }
+    await this.userRepository.update({ id: memberId }, { lastOnlineDate: new Date(), isOnline });
   }
 
   async getUsers(userIds: string[]) {

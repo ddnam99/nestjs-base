@@ -11,9 +11,10 @@ export class UserDto {
   gender?: number;
   phone?: string;
   dob?: Date;
-  lastLoginDate?: Date;
+  lastOnlineDate?: Date;
   deleted: boolean;
   blocked: boolean;
+
   @Exclude()
   passwordHash?: string;
 
