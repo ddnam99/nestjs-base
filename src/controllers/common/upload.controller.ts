@@ -1,10 +1,9 @@
-import { getPresignedUrl } from '$helpers/awsS3.helper';
 import { CommonController } from '$helpers/decorator.helper';
 import { ApiFile, ApiFiles, MulterConfig } from '$helpers/swagger.helper';
 import { GetPresignedUrlDto } from '$models/upload/GetPresignedUrl.dto';
+import { AwsS3Service } from '$services/common/awsS3.service';
 import {
   Body,
-  Controller,
   Get,
   Param,
   Post,
@@ -14,19 +13,14 @@ import {
   UploadedFiles,
   UseInterceptors,
 } from '@nestjs/common';
-import { AnyFilesInterceptor, FileInterceptor, FilesInterceptor } from '@nestjs/platform-express';
-import {
-  ApiBearerAuth,
-  ApiBody,
-  ApiConsumes,
-  ApiOperation,
-  ApiParam,
-  ApiTags,
-} from '@nestjs/swagger';
+import { AnyFilesInterceptor, FileInterceptor } from '@nestjs/platform-express';
+import { ApiConsumes, ApiParam } from '@nestjs/swagger';
 import { Request } from 'express';
 
 @CommonController('upload')
 export class UploadController {
+  constructor(private readonly awsS3Service: AwsS3Service) {}
+
   @Post('file')
   @ApiFile()
   @ApiConsumes('multipart/form-data')
@@ -67,6 +61,6 @@ export class UploadController {
 
   @Post('s3/presigned-url')
   getUrlUpload(@Req() req: Request, @Body() body: GetPresignedUrlDto) {
-    return getPresignedUrl(body.filename, body.contentType);
+    return this.awsS3Service.getPresignedUrl(body.filename, body.contentType);
   }
 }

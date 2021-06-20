@@ -1,4 +1,4 @@
-import { Trim } from '$utils/transformers';
+import { Trim } from '$helpers/transformer.helper';
 import { ApiProperty } from '@nestjs/swagger';
 import { IsEmail, IsNotEmpty, IsString, MinLength } from 'class-validator';
 

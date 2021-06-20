@@ -9,7 +9,7 @@ import { UserDto } from '$models/auth/CurrentUser.dto';
 
 @Injectable()
 export class AuthMiddleware implements NestMiddleware {
-  private logger: Logger = new Logger(AuthMiddleware.name);
+  private readonly logger: Logger = new Logger(AuthMiddleware.name);
   private readonly userService: UserService;
   private readonly redisService: RedisService;
   private readonly tokenService: TokenService;

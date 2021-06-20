@@ -6,6 +6,7 @@
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
     "target": "es2017",
     "sourceMap": true,
     "incremental": true,
@@ -18,7 +19,6 @@
       "$controllers/*": ["controllers/*"],
       "$entities/*": ["entities/*"],
       "$enums/*": ["enums/*"],
-      "$events/*": ["events/*"],
       "$gateways/*": ["gateways/*"],
       "$guards/*": ["guards/*"],
       "$helpers/*": ["helpers/*"],
@@ -29,7 +29,6 @@
       "$schedules/*": ["schedules/*"],
       "$services/*": ["services/*"],
       "$types/*": ["types/*"],
-      "$utils/*": ["utils/*"],
       "$workers/*": ["workers/*"]
     }
   },

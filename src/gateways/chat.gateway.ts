@@ -11,12 +11,12 @@ import {
 } from '@nestjs/websockets';
 import { Server, Socket } from 'socket.io';
 
-import { EventAction } from '$events/EventAction';
 import { RedisService } from '$connections/redis.provider';
 import { UserService } from '$services/common/user.service';
 import { IOnlineUser } from '$interfaces/IOnlineUser';
 import { OnEvent } from '@nestjs/event-emitter';
 import { EmitterConstant } from '$constants/emitter.constant';
+import { EventAction } from '$constants/EventAction';
 
 @WebSocketGateway({ namespace: 'chat' })
 @Injectable()

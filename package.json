@@ -12,7 +12,6 @@
     "$controllers": "dist/controllers",
     "$entities": "dist/entities",
     "$enums": "dist/enums",
-    "$events": "dist/events",
     "$gateways": "dist/gateways",
     "$guards": "dist/guards",
     "$helpers": "dist/helpers",
@@ -23,7 +22,6 @@
     "$schedules": "dist/schedules",
     "$services": "dist/services",
     "$types": "dist/types",
-    "$utils": "dist/utils",
     "$workers": "dist/workers"
   },
   "scripts": {

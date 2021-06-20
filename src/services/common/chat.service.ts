@@ -1,10 +1,10 @@
 import { EmitterConstant } from '$constants/emitter.constant';
+import { EventAction } from '$constants/EventAction';
 import { ConversationEntity } from '$entities/Conversation.entity';
 import { ConversationLastMessageEntity } from '$entities/ConversationLastMessage.entity';
 import { ConversationMemberEntity } from '$entities/ConversationMember.entity';
 import { ConversationMessageEntity } from '$entities/ConversationMessage.entity';
 import { MessageType } from '$enums/chat.enum';
-import { EventAction } from '$events/EventAction';
 import { CreateConversationDto } from '$models/chat/createConversation.dto';
 import { SendMessageDto } from '$models/chat/sendMessage.dto';
 import { SetNicknameDto } from '$models/chat/setNickname.dto';
