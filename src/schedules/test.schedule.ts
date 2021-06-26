@@ -10,7 +10,7 @@ export class TestSchedule {
 
   constructor(private readonly eventEmitter: EventEmitter2) {}
 
-  @Cron('* * 1 * * *')
+  @Cron('0 0 1 * * *')
   async handleCron() {
     // this.logger.debug('Called when the current second is 1 hour');
     await this.eventEmitter.emitAsync(EmitterConstant.CRON_EVENT, {

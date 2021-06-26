@@ -6,6 +6,7 @@ import { AppModule } from './app.module';
 import { swaggerSetup } from '$helpers/swagger.helper';
 import { ClassSerializerInterceptor, Logger, ValidationPipe } from '@nestjs/common';
 import { AuthGuard } from '$guards/auth.guard';
+import { HttpExceptionFilter } from '$helpers/httpExceptionFilter.helper';
 
 const logger = new Logger('NestApplication');
 
@@ -22,7 +23,7 @@ async function bootstrap() {
 
   const reflector = app.get(Reflector);
   app.useGlobalGuards(new AuthGuard(reflector));
-
+  app.useGlobalFilters(new HttpExceptionFilter());
   app.useGlobalInterceptors(new ClassSerializerInterceptor(reflector));
 
   swaggerSetup(app);
