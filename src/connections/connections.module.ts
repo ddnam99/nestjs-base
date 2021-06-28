@@ -22,6 +22,6 @@ import { FirebaseModule } from 'nestjs-firebase';
     }),
   ],
   providers: [RedisService],
-  exports: [TypeOrmModule, EventEmitterModule, BullModule, RedisService],
+  exports: [TypeOrmModule, EventEmitterModule, FirebaseModule, BullModule, RedisService],
 })
 export class ConnectionsModule {}

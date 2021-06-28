@@ -1,7 +1,7 @@
 import { EmitterConstant } from '$constants/emitter.constant';
 import { Injectable, Logger, OnModuleInit } from '@nestjs/common';
 import { OnEvent } from '@nestjs/event-emitter';
-import { Queue, Job } from 'bull';
+import Bull, { Queue, Job } from 'bull';
 import { InjectQueue, Process, Processor } from '@nestjs/bull';
 import { QueueConstant, QueueJobConstant } from '$constants/queue.constant';
 
@@ -13,9 +13,9 @@ export class TestQueue {
   constructor(@InjectQueue(QueueConstant.TEST_CHANEL) private readonly testQueue: Queue) {}
 
   @OnEvent(EmitterConstant.TEST_EVENT)
-  handleOrderCreatedEvent(payload: any) {
+  handleOrderCreatedEvent(data: any, opts: Bull.JobOptions) {
     this.logger.log(`Received data form event: ${EmitterConstant.TEST_EVENT}`);
-    this.testQueue.add(QueueJobConstant.LOG, payload);
+    this.testQueue.add(QueueJobConstant.LOG, data, opts);
   }
 
   @Process(QueueJobConstant.LOG)

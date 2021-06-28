@@ -74,7 +74,7 @@ export class ChatGateway implements OnGatewayInit, OnGatewayConnection, OnGatewa
       const accessToken = client.handshake.query.token;
       const user = await this.userService.findUserByAccessToken(accessToken);
 
-      if (!user) client.disconnect();
+      if (!user) return client.disconnect();
 
       await this.userService.setOnlineStatus(user.id, true);
       this.onlineUsers.push({ socketId: client.id, userId: user.id });

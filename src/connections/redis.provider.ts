@@ -27,7 +27,7 @@ export class RedisService {
 
   async set(key: string, value: any, expiry: number = 3600) {
     try {
-      await this.redis.set(key, JSON.stringify(value), 'EX', expiry);
+      return await this.redis.set(key, JSON.stringify(value), 'EX', expiry);
     } catch (e) {
       this.logger.error(`ERROR SET KEY ${key}: ${e.message}`);
     }
@@ -45,14 +45,14 @@ export class RedisService {
 
   async del(key: string) {
     try {
-      await this.redis.del(key);
+      return await this.redis.del(key);
     } catch (e) {
       this.logger.error(`ERROR DEL KEY ${key}: ${e.message}`);
     }
   }
 
   async publish(chanel: string, data: any) {
-    await this.redis.publish(chanel, JSON.stringify(data));
+    return await this.redis.publish(chanel, JSON.stringify(data));
   }
 
   getNewInstance() {
