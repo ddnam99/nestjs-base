@@ -134,16 +134,17 @@ export class ChatService {
     const queryBuilder = this.conversationRepository
       .createQueryBuilder('c')
       .select(
-        'c.id id, clm.message lastMessage, clm.mime_type mimeType, clm.message_type messageType, clm.last_sent lastSent',
+        'c.id id, clm.message lastMessage, clm.mime_type mimeType, clm.message_type messageType, clm.last_sent lastSent, c.direct direct',
       )
       .addSelect(
         `if(c.direct, if(cm1.nickname is not null, cm1.nickname, concat(u.first_name, ' ', u.last_name)), c.name) as conversationName`,
       )
       .addSelect(`if(c.direct, u.profile_image_url, c.thumbnail) as thumbnail`)
       .addSelect(
-        'cm.receive_notification receiveNotification, cm.last_seen lastSeen, cm.pined pined',
+        'if(cm.receive_notification is null, false, cm.receive_notification) receiveNotification, cm.last_seen lastSeen, if(cm.pined is null, false, cm.pined) pined',
       )
       .addSelect('cm.last_seen >= clm.last_sent as isSeen')
+      .addSelect('u.is_online isOnline, u.last_online_date lastOnlineDate')
       .innerJoin('conversation_last_message', 'clm', 'clm.conversation_id = c.id')
       .innerJoin(
         'conversation_member',
@@ -227,7 +228,10 @@ export class ChatService {
       .select(
         'u.id id, u.first_name firstName, u.last_name lastName, u.profile_image_url profileImageUrl',
       )
-      .addSelect('cm.nickname nickname, cm.join_date joinDate, cm.master master')
+      .addSelect(
+        'cm.nickname nickname, cm.join_date joinDate, if(cm.master is null, false, cm.master) master',
+      )
+      .addSelect('u.is_online isOnline, u.last_online_date lastOnlineDate')
       .leftJoin('users', 'u', 'u.id = cm.user_id')
       .where('cm.conversation_id = :conversationId', { conversationId });
 
