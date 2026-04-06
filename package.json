@@ -45,7 +45,7 @@
   "dependencies": {
     "@nestjs/bull": "^0.3.1",
     "@nestjs/common": "^7.5.1",
-    "@nestjs/core": "^7.5.1",
+    "@nestjs/core": "^11.1.18",
     "@nestjs/event-emitter": "^0.0.3",
     "@nestjs/platform-express": "^7.5.1",
     "@nestjs/platform-socket.io": "^7.6.15",
