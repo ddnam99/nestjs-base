@@ -58,7 +58,7 @@
     "@types/node": "^15.6.0",
     "@types/socket.io": "^2.1.13",
     "aws-sdk": "^2.913.0",
-    "axios": "^0.21.1",
+    "axios": "^0.31.1",
     "bcryptjs": "^2.4.3",
     "bull": "^3.22.6",
     "class-transformer": "^0.4.0",
